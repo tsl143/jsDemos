@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Handle Cancel and Open for file input </title>
+	<!-- reference : stackoverflow.com/questions/4628544/how-to-detect-when-cancel-is-clicked-on-file-input -->
+</head>
+<body>
+
+	<input type='file' id='theFile' onclick="initialize()" />
+	
+</body>
+
+	<script type="text/javascript">
+
+		var theFile = document.getElementById('theFile');
+
+		function initialize()
+		{
+		    document.body.onfocus = checkIt;
+		    console.log('initializing');
+		}
+		    
+		function checkIt()
+		{
+		    if(theFile.value.length) 
+		    	alert('Files Loaded');
+		    else 
+		    	alert('Cancel clicked');
+
+		    document.body.onfocus = null;
+		    console.log('checked');
+		}		
+	</script>
+</html>
