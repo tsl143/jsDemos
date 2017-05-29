@@ -1,0 +1,18 @@
+{
+
+  "description": "Days diffence finder - Find number of days between two given dates (For explicitly lazy souls[like me] who think counting days is much hassle)",
+  "manifest_version": 2,
+  "name": "Date diff",
+  "version": "1.0",
+  "homepage_url": "https://github.com/tsl143/jsDemos/dateDiff",
+  "icons": {
+    "48": "icons/icon_48.png"
+  },
+
+  "browser_action": {
+    "default_icon": "icons/icon_32.png",
+    "default_title": "Date Diff finder",
+    "default_popup": "popup/date.html"
+  }
+
+}
