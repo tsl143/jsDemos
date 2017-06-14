@@ -1,0 +1,29 @@
+{
+
+  "manifest_version": 2,
+  "name": "Facebook Blocker",
+  "description": "Blocks the Facebook for given time period, For the self motivated people who dont want to get distracted duing work hours",
+  "version": "1.1",
+
+  "homepage_url": "https://github.com/tsl143/jsDemos/fbBlocker_webext",
+  "icons": {
+    "32": "icons/logo_32.png",
+    "48": "icons/logo_48.png",
+    "64": "icons/logo_64.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://facebook.com/*","http://facebook.com/*","https://www.facebook.com/*","http://www.facebook.com/*"],
+      "js": ["stopIt.js"]
+    }
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
+
+  "permissions": ["storage"]
+
+}
