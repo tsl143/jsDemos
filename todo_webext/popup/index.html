@@ -1,0 +1,67 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+body{
+  font-family: Arial;
+  min-width: 300px;
+  max-width: 500px;
+}
+.row {
+    align-items: center;
+    display: flex;
+    margin: 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #888;
+}
+.row > div {
+  cursor: pointer;
+  min-width: 50px;
+  text-align: center;
+  word-wrap: break-word;
+}
+.row > div:last-child {
+  text-align: left;
+}
+.checkTodo{
+  visibility: hidden;
+}
+.IAmDone > div:last-child {
+  text-decoration : line-through;
+}
+.IAmDone .checkTodo{
+  visibility: visible;
+}
+#taskMaker {
+  position: relative;
+}
+.addTask {
+    cursor: pointer;
+    display: block;
+    background: #888;
+    text-align: center;
+    padding: 5px 10px;
+    color: #fff;
+}
+textarea {
+    width: calc(100% - 12px);
+    min-height: 50px;
+    border: 1px solid #b8b8b8;
+    padding: 5px;
+}
+ 
+</style>
+</head>
+<body>
+  <div id="taskMaker">
+    <textarea placeholder="blah blah blah"></textarea>
+    <a class="addTask">SAVE IT!</a>
+  </div>
+  <div id="todosHolder">
+
+  </div>
+</body>
+<script src="script.js"></script>
+</html>
