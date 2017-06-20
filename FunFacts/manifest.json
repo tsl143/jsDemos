@@ -3,7 +3,7 @@
   "description": "Chuck Norris facts :P ",
   "manifest_version": 2,
   "name": "Hail Chuck Norris",
-  "version": "1.0",
+  "version": "1.2",
   "homepage_url": "https://github.com/tsl143/jsDemos/FunFacts",
   "icons": {
     "64": "icons/logo_64.png",

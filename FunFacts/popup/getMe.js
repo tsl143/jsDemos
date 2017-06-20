@@ -11,7 +11,11 @@ oReq.onreadystatechange = function()
             if(oReq.status == 200)
             {
                 try{
-                    target.innerHTML = JSON.parse(oReq.responseText).value.joke;
+
+                    var response=(JSON.parse(oReq.responseText).value.joke);
+
+                    target.innerText = response;
+
                 }catch(e){
                     target.innerHTML = "Oops, something went wrong :( ";    
                 }
