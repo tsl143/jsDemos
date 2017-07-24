@@ -1,0 +1,17 @@
+{
+
+  "description": "Lets you kill some boredom :) ",
+  "manifest_version": 2,
+  "name": "Tic Tac Toe",
+  "version": "1.1",
+  "homepage_url": "https://github.com/tsl143",
+  "icons": {
+    "48": "icons/logo_48.png"
+  },
+  "browser_action": {
+    "default_icon": "icons/logo_32.png",
+    "default_title": "Tic Tac Toe",
+    "default_popup": "popup/play.html"
+  }
+
+}

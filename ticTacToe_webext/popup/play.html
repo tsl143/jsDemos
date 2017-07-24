@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" />
+<style type="text/css">
+body {
+  background: #00ECB9;
+  margin: 0;
+  font-family: sans-serif, arial;
+  min-width: 250px;
+  min-height: 250px;
+}
+
+h1 {
+    color: #396;
+    font-weight: 100;
+    font-size: 40px;
+    margin: 40px 0px 20px;
+    text-align: center;
+}
+
+
+.selectBtn {
+    background: #00BF96;
+    margin: 10px auto;
+    width: 200px;
+    padding: 10px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+}
+
+.page {
+    opacity: 0;
+    transform: translateX(-120%);
+    animation: all .5s;
+    position: absolute;
+    width: 100%;
+    transition: all .5s;
+}
+
+
+.page.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#grid {
+    display: flex;
+    width: 216px;
+    flex-wrap: wrap;
+    margin: 20px auto;
+}
+
+.blocks {
+    width: 70px;
+    height: 70px;
+    background: grey;
+    margin: 1px;
+    flex-basis: calc(33.333% - 2px);
+    transition: all .8s;
+}
+.blocks input {
+    width: 70px;
+    height: 70px;
+    background: #00816A;
+    border: 0;
+    color: #fff;
+    font-size: 35px;
+}
+
+.one {
+  transform: translate(70px,60px); 
+}
+.two {
+  transform: translate(0,60px); 
+}
+.three {
+  transform: translate(-70px,60px); 
+}
+.four {
+  transform: translate(70px,0px); 
+}
+.six {
+  transform: translate(-70px,0px); 
+}
+.seven {
+  transform: translate(70px,-60px); 
+}
+.eight {
+  transform: translate(0,-60px); 
+}
+.nine {
+  transform: translate(-70px,-60px); 
+}
+#grid.start .blocks{
+  transform: translate(0,0) !important;
+}
+.score {
+    padding: 10px;
+    border-radius: 3px;
+    color: #fff;
+    background: #00BF96;
+    text-align: center; 
+    display: inline-block;
+    margin: 0 20px;
+}
+#scoreBoard {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.score .progress {
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+.score .player {
+    padding-top: 5px;
+    font-size: 16px;
+}
+#alertMessage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 10;
+    transform: scale(0);
+    color: #fff;
+    font-size: 50px;
+    line-height: 1.5;
+    padding-top: 150px;
+    text-align: center;
+    transition: .5s;
+}
+#alertMessage.show{
+  opacity: .7;
+  transform: scale(1);
+}
+
+</style>
+</head>
+<body>
+  <div id="welcomeScreen" class="page active">
+    <h1>Wassup?</h1>
+    <div class="selectBtn selectPlayer" data-player="1">1 Player</div>
+    <div class="selectBtn selectPlayer" data-player="2">2 Players</div>
+  </div>
+
+  <div id="tttHolder" class="page">
+    <div id="scoreBoard">
+      <div class="score">
+        <span id="player1" class="progress">0</span>
+        <div class="player">Player X</div>
+      </div>
+      <div class="score">
+        <span id="player2" class="progress">0</span>
+        <div  class="player">Player O</div>
+      </div>
+    </div>
+    <form name="tic" method="post">
+      <div id="grid">
+
+        <div class="blocks one">
+          <INPUT TYPE="button" NAME="sqr1" value="     "  />
+        </div>
+        <div class="blocks two">
+          <INPUT TYPE="button" NAME="sqr2" value="     " >
+        </div>
+        <div class="blocks three">
+          <INPUT TYPE="button" NAME="sqr3" value="     " >
+        </div>
+        <div class="blocks four">
+          <INPUT TYPE="button" NAME="sqr4" value="     " >
+        </div>
+        <div class="blocks five">
+          <INPUT TYPE="button" NAME="sqr5" value="     " >
+        </div>
+        <div class="blocks six">
+          <INPUT TYPE="button" NAME="sqr6" value="     " >
+        </div>
+        <div class="blocks seven">
+          <INPUT TYPE="button" NAME="sqr7" value="     " >
+        </div>
+        <div class="blocks eight">
+          <INPUT TYPE="button" NAME="sqr8" value="     " >
+        </div>
+        <div class="blocks nine">
+          <INPUT TYPE="button" NAME="sqr9" value="     " >
+        </div>
+
+      </div>
+    </form>
+    <div id="actions">
+      <div id="restart" class="selectBtn">Restart</div>
+      <div id="goBack" class="selectBtn">Back</div>
+    </div>
+  </div>
+<div id="alertMessage"></div>
+</body>
+<script src="play.js"></script>
+</html>
