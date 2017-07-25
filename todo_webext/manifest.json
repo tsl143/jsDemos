@@ -3,11 +3,16 @@
   "description": "A todo addon which lets you to keep a track of your work, stays in browser and available on just a click",
   "manifest_version": 2,
   "name": "Todo",
-  "version": "1.0",
+  "version": "1.1",
   "homepage_url": "https://github.com/tsl143/jsDemos/todo_webext",
   "icons": {
     "32": "icons/logo_32.png",
     "64": "icons/logo_64.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
   },
   "browser_action": {
     "default_icon": "icons/logo_32.png",

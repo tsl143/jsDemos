@@ -9,7 +9,6 @@ var gettingItem = browser.storage.local.get('tslTodos');
 // localstorage returns promise
 gettingItem.then((res) => {
 
-  console.log(res);
   try{
     if(res.tslTodos.length > 0){
       res.tslTodos.forEach((entry)=>{
@@ -27,6 +26,7 @@ function setupTodos(){
     todos.forEach((entry)=>{
       insertTodo(entry);
     });
+    setupBadge(todos.length);
   }
 }
 
@@ -108,11 +108,11 @@ function saveToDo() {
 
     resetMemory();
   }
-  
 }
 
 function resetMemory() {
   browser.storage.local.set({tslTodos:todos});
+  setupBadge(todos.length);
 }
 
 document.querySelector('body').addEventListener('click', function(event) {
@@ -126,6 +126,13 @@ document.querySelector('body').addEventListener('click', function(event) {
     saveToDo();
 
 });
+
+function setupBadge(count){
+  browser.runtime.sendMessage({
+    action: 'setBadge',
+    data: count
+  });  
+}
 
 document.querySelector('textarea').addEventListener('keyup',function(event) {
   if(event.keyCode == 13)
