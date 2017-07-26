@@ -6,14 +6,15 @@
   "version": "1.3",
   "homepage_url": "https://github.com/tsl143/jsDemos/",
   "icons": {
+    "128": "icons/logo_128.png",
     "64": "icons/logo_64.png",
-    "48": "icons/logo_48.png"
+    "48": "icons/logo_48.png",
+    "32": "icons/logo_32.png"
   },
   "browser_action": {
     "default_icon": "icons/logo_32.png",
     "default_title": "Sticky Notes",
-    "default_popup": "popup/go.html",
-    "browser_style": true
+    "default_popup": "popup/go.html"
   },
   "permissions": ["storage"]
 }
