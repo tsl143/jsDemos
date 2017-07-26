@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "name": "Floating Sticky",
+    "version": "1.0",
+    "description": "An example.",
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "icons": {
+        "32": "logo/paper_32.png",
+        "48": "logo/paper_48.png",
+        "64": "logo/paper_64.png",
+        "128": "logo/paper_128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["cs.js"]
+        }
+    ],
+    "browser_action": {
+        "default_icon": "logo/icon.ico",
+        "default_title": "Floating Sticky"
+    },
+    "permissions": ["storage"]
+}
