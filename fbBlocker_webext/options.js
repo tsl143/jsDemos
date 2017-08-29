@@ -1,12 +1,17 @@
 function saveOptions(e) {
   e.preventDefault();
-  browser.storage.local.set({blockHrsTSL:{
-      fromHrs: document.querySelector("#fromTime").value,
-       toHrs: document.querySelector("#toTime").value
-    }
-  });
-
-  alert("Settings Saved");
+  const fromH = document.querySelector("#fromTime").value;
+  const toH = document.querySelector("#toTime").value; 
+  if(parseInt(fromH) > parseInt(toH)){
+    alert('From time cant be greater than to time!');
+  }else{
+    browser.storage.local.set({blockHrsTSL:{
+        fromHrs: fromH,
+         toHrs: toH
+      }
+    });
+    alert("Settings Saved");
+  }
 }
 
 function setForm() {
@@ -21,10 +26,12 @@ function setForm() {
 
     var gettingItem = browser.storage.local.get('blockHrsTSL');
     gettingItem.then((res) => {
-      let fromTime = res.blockHrsTSL.fromHrs || 0;
-      let toTime = res.blockHrsTSL.toHrs || 0;
-      document.querySelector("#fromTime").value = fromTime;
-      document.querySelector("#toTime").value = toTime;
+      if(res.blockHrsTSL){
+        let fromTime = res.blockHrsTSL.fromHrs || 0;
+        let toTime = res.blockHrsTSL.toHrs || 0;
+        document.querySelector("#fromTime").value = fromTime;
+        document.querySelector("#toTime").value = toTime;        
+      }
     });
 }
 

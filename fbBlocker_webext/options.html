@@ -3,28 +3,75 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <style type="text/css">
+      .rangeHolder {
+        font-size: 15px;
+        width: 300px;
+        border: 2px solid #EF476F;
+        padding: 20px 0;
+        margin: 0 auto;
+      }
+      .rangeinfo {
+        text-align: center;
+      }
+      .timeBlock {
+          width: 105px;
+          padding: 10px;
+          text-align: center;
+          background: #EF476F;
+          margin: 10px;
+          display: inline-block;
+          color: #fff;
+      }
+      .timeBlock select {
+        background: #F27C98;
+        border: 0;
+        padding: 5px;
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #444;
+      }
+      .rangeHolder button {
+        display: inline-block;
+        width: 235px;
+        background: #EF476F;
+        border: 0;
+        color: #FFF;
+        margin-left: 2px;
+        padding: 5px 0;
+        text-align: center;
+        font-size: 15px;
+      }
+    </style>
   </head>
 
-  <body>
-        <div>
-          <b>Select your distraction free hours!!!</b>
-          <i>The clock time is 24 hrs</i>
-        </div>
-        
-        <br>
-
-          <label>Block from: 
-            <select id="fromTime" style="background: #bfbfbf;border: 0;padding: 3px 5px;"></select>
-          </label>
-
-        <label>Block To: 
-          <select id="toTime" style="background: #bfbfbf;border: 0;padding: 3px 5px;"></select>
-        </label>
-
-        <button id="submit">Save</button>
-
+  <body> 
+    <div class="rangeHolder">
+      <div class="rangeinfo">
+        <b>Select your distraction free hours!!!</b><br>
+        <i>The clock time is 24 hrs</i>
+      </div>
+      <div style="text-align: center;">
+      <div class="timeBlock">
+          <span>
+            <select id="fromTime"></select>
+          </span>
+          <span>
+            FROM
+          </span>
+      </div>
+      <div class="timeBlock">
+          <span>
+            <select id="toTime"></select>
+          </span><br>
+          <span>
+            TO
+          </span>
+      </div>
+      <button id="submit">SAVE</button>
+      </div>
+    </div>
     <script src="options.js"></script>
-
   </body>
 
 </html>
