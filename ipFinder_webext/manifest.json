@@ -4,6 +4,8 @@
   "manifest_version": 2,
   "name": "IP finder",
   "version": "1.0",
+  "homepage_url": "https://github.com/tsl143/jsDemos/",
+
   "background": {
     "scripts": ["background.js"]
   },
