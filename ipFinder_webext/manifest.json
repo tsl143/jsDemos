@@ -1,0 +1,23 @@
+{
+
+  "description": "Find the IP of given website along with other details",
+  "manifest_version": 2,
+  "name": "IP finder",
+  "version": "1.0",
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "icons": {
+    "64": "icons/icon.png"
+  },
+  "page_action": {
+    "default_icon": "icons/icon.png",
+    "browser_style": true
+  },
+  
+  "permissions": [
+    "tabs",
+    "<all_urls>"
+  ]
+
+}
