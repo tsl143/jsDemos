@@ -3,10 +3,11 @@ browser.tabs.query({
 	currentWindow: true
 }, function (tabs) {
 
-	const url = tabs[0].url ;
-	let innerText = "<table border='1'>";
-	let XHR = new XMLHttpRequest();
-	let hexedURL = stringToHex(url);
+	const url = tabs[0].url.split('?')[0] ;
+	const holderObj = document.querySelector('#holder');
+	const tableObj = document.createElement('table');
+	const XHR = new XMLHttpRequest();
+	const hexedURL = stringToHex(url);
 
 	XHR.open('GET', `http://plugin.myip.ms/hex_${hexedURL}`, true);
 	XHR.send();
@@ -14,48 +15,68 @@ browser.tabs.query({
 		try{
 			if (XHR.readyState == 4 && XHR.status == 200){
 	        	const result = JSON.parse(XHR.responseText);
-				console.log(result);
-				if(result.domain && result.domain!="")
-					innerText += `<tr><td>Domain Name</td><td>${strip(result.domain)}</td></tr>`;
-				if(result.ip && result.ip!="")
-					innerText += `<tr><td>IP</td><td><a target='_blank' href='http://myip.ms/info/whois/${strip(result.ip)}/'>${strip(result.ip)}</a></td></tr>`;
-				if(result.ipv4 && result.ipv4!="")
-					innerText += `<tr><td>IPV4</td><td>${processNS(result.ipv4)}</td></tr>`;
-				if(result.ipv6 && result.ipv6!="")
-					innerText += `<tr><td>IPV6</td><td>${strip(result.ipv6)}</td></tr>`;
-				if(result.hosting && result.hosting!="")
-					innerText += `<tr><td>Hosted By</td><td>${strip(result.hosting)}</td></tr>`;
-				if(result.owners && result.owners!="")
-					innerText += `<tr><td>Owners</td><td>${strip(result.owners)}</td></tr>`;
-				if(result.countryName && result.countryName!="")
-					innerText += `<tr><td>Country</td><td>${strip(result.countryName)}</td></tr>`;
-				if(result.host && result.host!="")
-					innerText += `<tr><td>Host</td><td>${strip(result.host)}</td></tr>`;
-				if(result.ns && result.ns!=""){
-					innerText += `<tr><td>NameServers</td><td>${processNS(result.ns)}</td></tr>`;
-				}
 
-				document.querySelector('#holder').innerHTML = innerText+"</table>";
+				if(result.domain && result.domain!="")
+					tableObj.appendChild(createTRNode('Domain Name', result.domain));
+				if(result.ip && result.ip!="")
+					tableObj.appendChild(createTRNode('IP', result.ip, true));
+				if(result.ipv4 && result.ipv4!="")
+					tableObj.appendChild(createTRNode('IPV4', result.ipv4));
+				if(result.ipv6 && result.ipv6!="")
+					tableObj.appendChild(createTRNode('IPV6', result.ipv6));
+				if(result.hosting && result.hosting!="")
+					tableObj.appendChild(createTRNode('Hosted By', result.hosting));
+				if(result.owners && result.owners!="")
+					tableObj.appendChild(createTRNode('Owners', result.owners));
+				if(result.countryName && result.countryName!="")
+					tableObj.appendChild(createTRNode('Country', result.countryName));
+				if(result.host && result.host!="")
+					tableObj.appendChild(createTRNode('Host', result.host));
+				if(result.ns && result.ns!="")
+					tableObj.appendChild(createTRNode('Name Servers', result.ns));
+
+				document.getElementsByTagName('h3')[0].remove();
+				holderObj.appendChild(tableObj);
 	        }	
 		}catch(e) {
-			document.querySelector('#holder').innerHTML = "Something went Wrong!";
+			document.querySelector('#holder').textContent = "Something went Wrong!";
 		}
         
     }
 });
 
-function strip(html)
-{
-   var tmp = document.createElement("DIV");
-   tmp.innerHTML = html;
-   return tmp.textContent || tmp.innerText || "";
+function createTRNode(label, value, isIPNode){
+	const tr = document.createElement('tr');
+	const tdLabel = document.createElement('td');
+	const tdValue = document.createElement('td');
+	tdLabel.textContent = label;
+	tr.appendChild(tdLabel);
+	tr.appendChild(processNode(tdValue, value, isIPNode));
+	return tr;
 }
 
-function processNS(str){
-	let NSString = "";
-	const dirtyNS = str.split('</li><li>');
-	dirtyNS.forEach(eachNS => {NSString += strip(eachNS)+"<br>";});
-	return NSString;
+
+
+function strip(string){
+  return string.split("<").map(function(d){ return d.split(">").pop(); }).join("");
+}
+
+function processNode(obj, str, isIPNode){
+	const dirtyNode = str.split('</li><li>');
+	dirtyNode.forEach(eachNode => {
+		const pTag = document.createElement('p');
+		if(isIPNode){
+			const aTag = document.createElement('a');
+			aTag.setAttribute('href',`http://myip.ms/info/whois/${strip(eachNode)}/`);
+			aTag.setAttribute('target',`_blank`);
+			aTag.textContent = strip(eachNode);
+			pTag.appendChild(aTag);
+		}else{
+			pTag.textContent = strip(eachNode);	
+		}
+		obj.appendChild(pTag);
+	});
+	return obj;
 }
 
 function stringToHex(s)
