@@ -3,7 +3,7 @@
   "description": "Find the IP of given website along with other details",
   "manifest_version": 2,
   "name": "IP finder",
-  "version": "1.0",
+  "version": "1.1",
   "homepage_url": "https://github.com/tsl143/jsDemos/",
 
   "background": {
