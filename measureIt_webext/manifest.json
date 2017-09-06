@@ -1,0 +1,25 @@
+{
+	"manifest_version": 2,
+	"name": "Measure-it",
+	"description": "Draw a ruler across any webpage to check the width, height, or alignment of page elements in pixels.",
+	"version": "1.0",
+	"icons": {
+		"32": "icons/icon_32.png",
+		"64": "icons/icon_64.png",
+		"48": "icons/icon_48.png",
+		"128": "icons/icon_128.png"
+	},
+	"browser_action": {
+	    "default_icon": "icons/icon_32.png",
+	    "default_title": "Measure-it"
+	},
+	"background": {
+		"scripts": ["bg.js"]
+	},
+	"content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["cs.js"]
+        }
+    ]
+}

@@ -6,5 +6,8 @@ Demos for various JS functions also code repo for various webextensions submitte
 * board_webext - newtab capture, page modifier, storageAPI, tabs API
 * fbBlocker_webext - Intercept HTTP request, webrequest, notification API, options page example, storageAPI
 * todo_webext - storageAPI, browserACtion API, popup handeling
-* FunFacts - popup page, XHR handeling, third party API integration
+* FunFacts - browserAction API, popup page, XHR handeling, third party API integration
 * tictacTow_webext - pure JS AI based tic tac toe game, panel integration
+* ipBlocker_webext - pageAction API, XHR, pageAction Popup
+* floatingSticky_webext - contentScript API, storage
+* maesureIt_webext - contentScript API, browserAction API
