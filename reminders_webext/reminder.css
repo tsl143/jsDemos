@@ -1,0 +1,13 @@
+#datePicker, #timePicker {
+    background: #f9f9f9;
+    padding: 10px;
+    margin: 10px;
+    display: inline-block;
+}
+select {
+    background: none;
+    border: 0;
+    padding: 5px 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
