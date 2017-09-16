@@ -82,7 +82,7 @@ const setReminderList = response => {
       reminder.setAttribute('title', new Date(localTime))
       reminderArrow.textContent = '»'
       reminderText.textContent = tslReminders[item]
-      reminderDelete.textContent = 'x'
+      reminderDelete.textContent = '✖'
       reminderDelete.addEventListener('click',() => removeReminder(item,reminder, tslReminders))
       reminder.appendChild(reminderArrow)
       reminder.appendChild(reminderText)

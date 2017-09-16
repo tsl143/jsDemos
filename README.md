@@ -11,3 +11,4 @@ Demos for various JS functions also code repo for various webextensions submitte
 * ipBlocker_webext - pageAction API, XHR, pageAction Popup
 * floatingSticky_webext - contentScript API, storage
 * maesureIt_webext - contentScript API, browserAction API
+* reminders_webext - Storage API, Notification API, BrowserAlarms, BrowserAction
