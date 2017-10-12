@@ -1,3 +1,3 @@
-browser.browserAction.onClicked.addListener(tab=>{
-  const sending = browser.tabs.sendMessage(tab.id,{data:'knockKnock'});
+browser.browserAction.onClicked.addListener(tab => {
+  browser.tabs.executeScript(tab.Id, {file: 'cs.js'});
 });
