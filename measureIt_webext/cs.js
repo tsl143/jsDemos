@@ -9,8 +9,8 @@
 
 
     selector: document.createElement('div'),
-    upperLabel: document.createElement('tslUpperLabel'),
-    lowerLabel: document.createElement('tslLowerLabel'),
+    upperLabel: document.createElement('span'),
+    lowerLabel: document.createElement('span'),
     overlay: document.createElement('div'),
 
     init: () => {
@@ -131,7 +131,7 @@
   letsGo = () => {
   	
   	if(document.getElementById('tslOverlay'))
-  		manipulators.destroy();
+      document.getElementById('tslOverlay').remove();
   	else
   		manipulators.init();
 
