@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name" : "word count",
+  "description" : "Counts words and characters in selected text",
+  "version": "1.1",
+
+  "icons": {
+      "32": "icons/icon_32.png",
+      "48": "icons/icon_48.png",
+      "64": "icons/icon_64.png"
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions" : [
+  	"menus",
+    "notifications"
+  ]
+}

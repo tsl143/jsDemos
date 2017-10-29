@@ -12,3 +12,4 @@ Demos for various JS functions also code repo for various webextensions submitte
 * floatingSticky_webext - contentScript API, storage
 * maesureIt_webext - contentScript API, browserAction API
 * reminders_webext - Storage API, Notification API, BrowserAlarms, BrowserAction
+* woedCount_webext - ContextMenu API, Notification API
