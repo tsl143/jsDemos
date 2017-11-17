@@ -1,0 +1,15 @@
+{
+    "manifest_version": 2,
+    "name": "Fullscreen Plus",
+    "description": "Full screen websites without address/tabs bar",
+    "version": "1.1",
+    "icons": {
+        "64": "icon.png"
+    },
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["cs.js"]
+      }
+    ]
+}
