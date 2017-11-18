@@ -26,6 +26,32 @@ textarea {
     padding: 5px;
 	overflow: auto;
 }
+
+#layOver {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+}
+
+#layOver button {
+    background: #fff;
+    border: 0;
+    padding: 5px 30px;
+    margin: 10px 20px;
+    font-weight: bold;
+}
+
+#layOver > div {
+    color: #fff;
+    margin-top: 140px;
+}
+
+.hidden {
+    display: none;
+}
  
 </style>
 </head>
@@ -34,6 +60,11 @@ textarea {
 	<div><textarea id="tslNotes" placeholder="Get Set Go..."></textarea>
 	<a id="cleanPad">Clear</a>
 	</div>
+    <div id="layOver" class="hidden">
+        <div>Are you sure to delete everything?</div>
+        <button id="yesPlz">Yes</button>
+        <button id="nope">No</button>
+    </div>
 </div>
 </body>
 <script src="getMe.js"></script>

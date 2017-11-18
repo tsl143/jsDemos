@@ -3,7 +3,7 @@
   "description": "Simple sticky notes utility which provides facility to make small notes of any and every thing.",
   "manifest_version": 2,
   "name": "Sticky Notes",
-  "version": "1.3",
+  "version": "1.5",
   "homepage_url": "https://github.com/tsl143/jsDemos/",
   "icons": {
     "128": "icons/logo_128.png",
