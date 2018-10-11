@@ -1,0 +1,26 @@
+{
+	"manifest_version": 2,
+	"name": "Toggle Password",
+	"description": "Toggles password field to show plain text and vice versa.",
+	"version": "1.0.0",
+	"icons": {
+		"32": "icons/icon_32.png",
+		"48": "icons/icon_48.png",
+		"64": "icons/icon_64.png"
+	},
+	"background": {
+		"scripts": ["bg.js"]
+	},
+	"permissions": ["activeTab"],
+	"browser_action": {
+	    "default_icon": "icons/icon_32.png",
+	    "default_title": "Toggle Password"
+	},
+	"commands": {
+		"_execute_browser_action": {
+		  	"suggested_key": {
+				"default": "Alt+Shift+P"
+		  	}
+		}
+	}
+}
