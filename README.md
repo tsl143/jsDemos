@@ -1,4 +1,7 @@
 # jsDemos
+
+### Home page for all listed extensions, if you have any suggestions/bugs, please file an issue in this repo or click [here](https://github.com/tsl143/jsDemos/issues/new)
+
 Demos for various JS functions also code repo for various webextensions submitted to addons.mozilla.org by Trishul
 
 
@@ -12,4 +15,4 @@ Demos for various JS functions also code repo for various webextensions submitte
 * floatingSticky_webext - contentScript API, storage
 * maesureIt_webext - contentScript API, browserAction API
 * reminders_webext - Storage API, Notification API, BrowserAlarms, BrowserAction
-* woedCount_webext - ContextMenu API, Notification API
+* wordCount_webext - ContextMenu API, Notification API
