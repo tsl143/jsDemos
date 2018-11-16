@@ -1,7 +1,12 @@
 {
 	"manifest_version": 2,
-	"name": "Toggle Password",
-	"description": "Toggles password field to show plain text and vice versa.",
+	"name": "__MSG_extensionName__",
+	"description": "__MSG_extensionDescription__",
+	"applications": {
+		"gecko": {
+			"id": "toggle-password@trishul"
+		}
+	},
 	"version": "1.0.0",
 	"icons": {
 		"32": "icons/icon_32.png",
@@ -11,10 +16,11 @@
 	"background": {
 		"scripts": ["bg.js"]
 	},
+	"default_locale": "en",
 	"permissions": ["activeTab"],
 	"browser_action": {
 	    "default_icon": "icons/icon_32.png",
-	    "default_title": "Toggle Password"
+	    "default_title": "__MSG_buttonTitle__"
 	},
 	"options_ui": {
 		"page": "options.html"

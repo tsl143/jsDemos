@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+      "message": "Passwort umschalten",
+      "description": "Name of the extension."
+    },
+  
+    "extensionDescription": {
+      "message": "Schaltet das Kennwortfeld um, um Klartext anzuzeigen, und umgekehrt.",
+      "description": "Description of the extension."
+    },
+  
+    "buttonTitle": {
+      "message": "Passwort umschalten",
+      "description": "Title of the toolbar button."
+    }
+  }

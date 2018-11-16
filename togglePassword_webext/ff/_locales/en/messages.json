@@ -1,0 +1,16 @@
+{
+    "extensionName": {
+      "message": "Toggle Password",
+      "description": "Name of the extension."
+    },
+  
+    "extensionDescription": {
+      "message": "Toggles password field to show plain text and vice versa.",
+      "description": "Description of the extension."
+    },
+  
+    "buttonTitle": {
+      "message": "Toggle Password",
+      "description": "Title of the toolbar button."
+    }
+  }
