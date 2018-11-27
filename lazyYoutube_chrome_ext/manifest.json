@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "Lazy youtube",
+  "description": "Play/Pause, play next youtube song with shortcuts",
+  "version": "1.0.0",
+  "icons": {
+    "64": "icons/icon.png"
+  },
+  "background": {
+    "scripts": [
+      "bg.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "cs.js"
+      ]
+    }
+  ],
+  "commands": {
+		"play": {
+		  	"suggested_key": {
+				"default": "Ctrl+Shift+Home"
+        },
+        "description": "play/pause"
+    },
+    "next": {
+      "suggested_key": {
+      "default": "Ctrl+Shift+End"
+      },
+      "description": "next"
+    }
+  },
+  "permissions": ["tabs"]
+}
