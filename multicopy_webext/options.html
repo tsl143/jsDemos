@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+    #optionTable {
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+    #optionTable td, #optionTable th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        border: 1px solid #444;
+        padding: 5px;
+    }
+    #optionTable td:first-child {
+        min-width: 200px;
+        max-width: 500px;
+    }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <label>Maximum number of copy Items(max 30)</label>
+            </td>
+            <td>
+                <input type="number" min="1" max="30" id="maxCopy" />
+            </td>
+        </tr>
+        <tr>
+            <td><button id="deleteAll">Delete All copied texts</button></td>
+        </tr>
+    </table>
+    <table id="optionTable"></table>
+</body>
+<script src="polyfill.js"></script>
+<script src="options.js"></script>
+
+</html>
