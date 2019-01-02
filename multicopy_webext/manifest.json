@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Multicopy",
 	"description": "Copy multiple texts and do multiple pastes from right click menu",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"applications": {
 		"gecko": {
 			"id": "multicopy@trishul"

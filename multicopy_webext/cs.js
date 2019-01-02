@@ -1,7 +1,9 @@
 
 (function(){
     try {
-        navigator.clipboard.writeText(multicopyCurrent);
         document.activeElement.value += multicopyCurrent;
-    } catch(e) {}
+        navigator.clipboard.writeText(multicopyCurrent);
+    } catch(e) {
+        console.log('clipboard API not supported on http page or older than 61')
+    }
 })()
