@@ -81,7 +81,6 @@ const pasteHere = id => {
 			const { multicopy = {} } = res;
 			const { texts = []} = multicopy;
 			const thePaste = texts.filter(t => t.id == id);
-			document.execCommand("paste");
 			try {
 				tabs.query({currentWindow: true, active: true})
 				.then((tab) => {
