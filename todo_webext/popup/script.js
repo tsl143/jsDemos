@@ -1,32 +1,28 @@
-//variable for holding todos
-var todos = [];
-var todosHolder = document.getElementById('todosHolder');
+let todos = [];
 
+const pushTodos = ({tslTodos = []}) => {
+  tslTodos.forEach((entry)=>{
+    todos.push(entry);
+  });
+}
 
-//get the time values from browser local storage
-var gettingItem = browser.storage.local.get('tslTodos');
-
-// localstorage returns promise
-gettingItem.then((res) => {
-
-  try{
-    if(res.tslTodos.length > 0){
-      res.tslTodos.forEach((entry)=>{
-        todos.push(entry);
-      });    
-    }
-  }catch(e){}
-
+const gettingItem = browser.storage.sync.get('tslTodos');
+gettingItem.then(async (res) => {
+  const localResult = await browser.storage.local.get('tslTodos') || {};
+  if(localResult.tslTodos) {
+    pushTodos(localResult);
+    resetMemory();
+  }
+  pushTodos(res);
   setupTodos();
 });
 
 function setupTodos(){
-
   if(todos.length > 0){
     todos.forEach((entry)=>{
       insertTodo(entry);
     });
-    setupBadge(todos.length);
+    setupBadge();
   }
 }
 
@@ -45,6 +41,7 @@ function insertTodo(entry){
       tempChild.setAttribute('data-isDone',entry.done);
       tempChild.setAttribute('data-id',entry.key);
 
+      const todosHolder = document.getElementById('todosHolder');
       todosHolder.appendChild(tempChild);
 
 }
@@ -88,10 +85,8 @@ function removeTodoFromMemory(dataId){
 }
 
 function toggleTodoInMemory(dataId,dataIsDone){
-
-  var mapTodos = todos.map(function(entry) {
-    if(entry.key == dataId)
-      entry.done = dataIsDone != 1 ? 1:0;
+  todos = todos.map(entry => {
+    if(entry.key == dataId) entry.done = dataIsDone != 1 ? 1:0;
     return entry; 
   });
   resetMemory();
@@ -111,8 +106,9 @@ function saveToDo() {
 }
 
 function resetMemory() {
-  browser.storage.local.set({tslTodos:todos});
-  setupBadge(todos.length);
+  browser.storage.local.clear();
+  browser.storage.sync.set({tslTodos:todos});
+  setupBadge();
 }
 
 document.querySelector('body').addEventListener('click', function(event) {
@@ -127,11 +123,12 @@ document.querySelector('body').addEventListener('click', function(event) {
 
 });
 
-function setupBadge(count){
-  browser.runtime.sendMessage({
-    action: 'setBadge',
-    data: count
-  });  
+function setupBadge(){
+  count = todos.filter((item) => item.done === 0).length;
+  if (count > 0)
+    browser.browserAction.setBadgeText({text: count.toString()});
+  else
+  browser.browserAction.setBadgeText({text: ''});
 }
 
 document.querySelector('textarea').addEventListener('keyup',function(event) {
