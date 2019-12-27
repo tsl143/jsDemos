@@ -11,22 +11,24 @@ function saveOptions(e) {
 }
 
 function setForm() {
-
-  var valuesForBox = '';
-
-  for(let i=0; i<=24; i++)
-    valuesForBox += `<option value="${i}">${i}</value>`;
-
-  document.querySelector("#fromTime").innerHTML=valuesForBox;
-  document.querySelector("#toTime").innerHTML=valuesForBox;
+  const fromTimeBox = document.querySelector("#fromTime");
+  const toTimeBox = document.querySelector("#toTime");
+  for(let i=0; i<=24; i++) {
+    const o1 = document.createElement('option');
+    const o2 = document.createElement('option');
+    o1.value = i; o2.value = i;
+    o1.textContent = i; o2.textContent = i;
+    fromTimeBox.appendChild(o1);
+    toTimeBox.appendChild(o2);
+  }
 
     var gettingItem = browser.storage.local.get('blockHrsTSL');
     gettingItem.then((res) => {
       if(res.blockHrsTSL){
         let fromTime = res.blockHrsTSL.fromHrs || 0;
         let toTime = res.blockHrsTSL.toHrs || 0;
-        document.querySelector("#fromTime").value = fromTime;
-        document.querySelector("#toTime").value = toTime;        
+        fromTimeBox.value = fromTime;
+        toTimeBox.value = toTime;
       }
     });
 }
