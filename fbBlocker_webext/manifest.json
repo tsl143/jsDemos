@@ -3,7 +3,7 @@
   "manifest_version": 2,
   "name": "Facebook Blocker",
   "description": "Blocks the Facebook for given time period, For the self motivated people who dont want to get distracted duing work hours",
-  "version": "2.2",
+  "version": "2.3",
 
   "homepage_url": "https://github.com/tsl143/jsDemos/fbBlocker_webext",
   "icons": {

@@ -2,16 +2,12 @@ function saveOptions(e) {
   e.preventDefault();
   const fromH = document.querySelector("#fromTime").value;
   const toH = document.querySelector("#toTime").value; 
-  if(parseInt(fromH) > parseInt(toH)){
-    alert('From time cant be greater than to time!');
-  }else{
-    browser.storage.local.set({blockHrsTSL:{
-        fromHrs: fromH,
-         toHrs: toH
-      }
-    });
-    alert("Settings Saved");
-  }
+  browser.storage.local.set({blockHrsTSL:{
+      fromHrs: fromH,
+        toHrs: toH
+    }
+  });
+  alert("Settings Saved");
 }
 
 function setForm() {

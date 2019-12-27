@@ -25,17 +25,17 @@ function handleHTTPRequest(details) {
 	const blockRequest = new Promise((resolve) => {
 		gettingItem = browser.storage.local.get('blockHrsTSL'); 
 		gettingItem.then((res) => {
-		  let fromTime = res.blockHrsTSL.fromHrs || 0;
-		  let toTime = res.blockHrsTSL.toHrs || 0;
+			if(res && res.blockHrsTSL) {
+				let fromTime = res.blockHrsTSL.fromHrs || 0;
+				let toTime = res.blockHrsTSL.toHrs || 0;
 
-		  if(fromTime == 0 && toTime == 0)
-		  	resolve(false);
+				if(fromTime == 0 && toTime == 0) resolve(false);
 
-		  if(isBlocked(fromTime, toTime)){
-		  	if(shallNotify) 
-		  		notifyUser(fromTime, toTime);
-		  	resolve({ cancel: true });
-		  }
+				if(isBlocked(fromTime, toTime)){
+					if(shallNotify) notifyUser(fromTime, toTime);
+					resolve({ cancel: true });
+				}
+			}
 
 		  resolve(false);
 		});
@@ -43,13 +43,23 @@ function handleHTTPRequest(details) {
 	return blockRequest;
 }
 
-function isBlocked(fromTime, toTime){
+function isBlocked(from, to){
 
-	rightNowDate = new Date();
-	rightNow = rightNowDate.getHours() * 60 + rightNowDate.getMinutes();
+	const rightNowDate = new Date();
+	const rightNow = rightNowDate.getHours() * 60 + rightNowDate.getMinutes();
+	const fromTime = from * 60;
+	const toTime = to * 60;
 
-	if( rightNow >= (fromTime*60) && rightNow <= (toTime*60) )
-		return true;
+	if (
+		(
+			toTime < fromTime &&
+			(
+				(rightNow >= fromTime && rightNow <= 24*60) ||
+				(rightNow > 0 && rightNow <= toTime)
+			)
+		) ||
+		(rightNow >= fromTime && rightNow <= toTime)
+	) return true;
 	else
 		return false;
 }
