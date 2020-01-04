@@ -1,105 +1,186 @@
-const config = {
-    target:     'start-date-mtr-datepicker',
-    timestamp:  new Date,
-    future:     true,
-    months: {
-      min: 0,
-      max: 11,
-      step: 1
-    },
-    minutes: {
-      min: 0,
-      max: 59,
-      step: 1
-    },
-    years: {
-      min: 2017,
-      max: 2038,
-      step: 1
-    }
-  };
-
-const domElements = {
-  saveReminder: document.getElementById('saveReminder'),
-  reminderText: document.getElementById('reminder-text'),
-  showReminders: document.getElementById('showReminders'),
-  showClock: document.getElementById('showClock'),
-  isClock: document.getElementById('isClock'),
-  isList: document.getElementById('isList'),
-  reminderHolder: document.getElementById('reminderHolder'),
-	reminderPlaceholder: document.getElementById('reminderPlaceholder'),
-	success: document.getElementById('success')
+const idPrefix = 'queIt_';
+const ele = {
+  dateHolder: document.getElementById('dateHolder'),
+  save: document.getElementById('save'),
+  hidden: document.getElementById('hidden'),
+  cancel: document.getElementById('cancel'),
+  new: document.getElementById('newReminder'),
+  edit: document.getElementById('editView'),
+  list: document.getElementById('listView'),
+  historylist: document.getElementById('listViewO'),
+  title: document.querySelector('[name="title"]'),
+  desc: document.querySelector('[name="desc"]'),
+  time: document.querySelector('[name="time"]'),
+  date: document.querySelector('[name="date"]'),
+  daily: document.querySelector('[name="daily"]'),
+  id: document.querySelector('[name="id"]'),
+  cList: document.getElementById('listViewULC'),
+  oList: document.getElementById('listViewULO'),
+  history: document.getElementById('history'),
+  back: document.getElementById('back'),
+  noCReminders: document.getElementById('noCReminders'),
+  noOReminders: document.getElementById('noOReminders'),
 }
-const myDatepicker = new MtrDatepicker(config);
 
-domElements.saveReminder.addEventListener('click', ()=>{
-
-    const when = myDatepicker.getTimestamp()
-    const sending = browser.runtime.sendMessage({
-        action: "create",
-        reminder: domElements.reminderText.value,
-        id: 'queIt_'+when,
-        when
-    });
-    domElements.reminderText.value = '';
-		domElements.success.className = 'showMe'
-		setTimeout(()=>{domElements.success.className = ''},1000)
-})
-domElements.showReminders.addEventListener('click', ()=>{
-  domElements.isClock.className = 'hide'
-  domElements.isList.className = ''
-  setList()
-})
-
-domElements.showClock.addEventListener('click', ()=>{
-  domElements.isClock.className = ''
-  domElements.isList.className = 'hide'
-})
-
-const setList = () => {
-  while (domElements.reminderHolder.firstChild) {
-    domElements.reminderHolder.removeChild(domElements.reminderHolder.firstChild);
+const makeList = (data = [], current = true) => {
+  if (current) {
+    while (ele.cList.children.length > 0) {
+      ele.cList.firstChild.remove();
+    }
+  } else {
+    while (ele.oList.children.length > 0) {
+      ele.oList.firstChild.remove();
+    }
   }
-  const gettingItem = browser.storage.local.get('tslReminders'); 
-  gettingItem.then((res) => setReminderList(res))
+  if (data.length == 0) {
+    if(current) ele.noCReminders.classList.remove('hidden');
+    else ele.noOReminders.classList.remove('hidden');
+    return;
+  }
+  const template = document.getElementById('listitem');
+  const holder = current ? ele.cList : ele.oList;
+  data.forEach(d => {
+    if (current && d.done) return;
+    if (!current && !d.done) return;
+    const item = document.importNode(template.content, true);
+    item.querySelector('.lTitle').textContent = d.title;
+    item.querySelector('li').setAttribute('data-id', d.id)
+    if (d.daily) item.querySelector('.daily').classList.remove('hidden');
+    holder.appendChild(item);
+  })
 }
-const setReminderList = response => {
-  const tslReminders = response.tslReminders
-  if(!tslReminders)
-    return false
 
-  if(Object.keys(tslReminders).length === 0 && tslReminders.constructor === Object) {
-    domElements.reminderPlaceholder.className = ''
-  }else{
-    domElements.reminderPlaceholder.className = 'hide'
-    for(let item in  tslReminders) {
-      const localTime = parseInt(item.split('_')[1])
-      const reminder = document.createElement('div')
-      const reminderArrow = document.createElement('span')
-      const reminderText = document.createElement('span')
-      const reminderDelete = document.createElement('a')
-      reminder.className = 'reminder'
-      reminder.setAttribute('title', new Date(localTime))
-      reminderArrow.textContent = '»'
-      reminderText.textContent = tslReminders[item]
-      reminderDelete.textContent = '✖'
-      reminderDelete.addEventListener('click',() => removeReminder(item,reminder, tslReminders))
-      reminder.appendChild(reminderArrow)
-      reminder.appendChild(reminderText)
-      reminder.appendChild(reminderDelete)
-      domElements.reminderHolder.appendChild(reminder)
-    }
+const changePage = mode => {
+  switch (mode) {
+    case 'list':
+      browser.runtime.sendMessage({ action: 'list', data: { current: true } });
+      ele.list.classList.remove('hidden');
+      ele.edit.classList.add('hidden');
+      ele.historylist.classList.add('hidden');
+      break;
+    case 'edit':
+      ele.edit.classList.remove('hidden');
+      ele.list.classList.add('hidden');
+      ele.historylist.classList.add('hidden');
+      break;
+    case 'history':
+      browser.runtime.sendMessage({ action: 'list', data: { current: false } });
+      ele.historylist.classList.remove('hidden');
+      ele.edit.classList.add('hidden');
+      ele.list.classList.add('hidden');
+      break;
   }
 }
 
-const removeReminder = (item, reminder, tslReminders) => {
-  domElements.reminderHolder.removeChild(reminder)
-  delete tslReminders[item]
-  if(Object.keys(tslReminders).length === 0 && tslReminders.constructor === Object)
-    domElements.reminderPlaceholder.className = ''
-  browser.storage.local.set({ tslReminders })
-  const sending = browser.runtime.sendMessage({
-    action: "delete",
-    id: item
+const saveReminder = () => {
+  const data = {
+    title: ele.title.value || 'No title',
+    desc: ele.desc.value || '',
+    rTime: ele.time.value,
+    daily: ele.daily.checked,
+    rDate: ele.date.value,
+    id: ele.id.value,
+  }
+  if (!data.rTime || data.rTime == "") {
+    alert("no time set");
+    return;
+  }
+  if (!data.daily && (!data.rDate || data.rDate == "")) {
+    alert("no Date set");
+    return;
+  }
+  // send to BG
+  browser.runtime.sendMessage({
+    action: "create",
+    data
   });
 }
+
+const handleItemClick = (current, e) => {
+  if(e.target.hasAttribute('data-action')) {
+    const action = e.target.getAttribute('data-action')
+    const id = e.target.parentNode.getAttribute('data-id');
+    switch(action) {
+      case 'edit':
+        changePage('edit');
+        browser.runtime.sendMessage({
+          action: "getreminder",
+          data: { id, current }
+        });
+        break;
+      case 'delete':
+        browser.runtime.sendMessage({
+          action: "delete",
+          data: { id, current }
+        });
+        break
+    }
+  }
+}
+
+const handleDate = () => {
+  if(!ele.daily.checked) {
+    ele.dateHolder.classList.remove('hidden')
+  } else {
+    ele.dateHolder.classList.add('hidden')
+  }
+}
+
+// Edit page setup
+const setEdit = data => {
+  ele.title.value = data.title;
+  ele.desc.value = data.desc;
+  ele.time.value = data.rTime;
+  ele.date.value = data.rDate;
+  ele.daily.checked = data.daily;
+  ele.id.value = `${idPrefix}${data.ts}`;
+  handleDate();
+}
+
+// New reminder setup
+const emptyInputs = () => {
+  document.querySelectorAll('input').forEach(i =>{
+    i.value = '';
+  });
+  const now = new Date;
+  ele.time.value = `${now.getHours()}:${now.getMinutes()}`
+  ele.daily.checked = false;
+  ele.desc.value = '';
+  handleDate();
+}
+
+const handleMessage = ({action, data, current}) => {
+  switch(action) {
+    case 'list':
+      const sortedData = [];
+      Object.keys(data).forEach(k => {
+        const entry = data[k];
+        entry.id = k;
+        sortedData.push(entry);
+      });
+      makeList(sortedData, current);
+      break;
+    case 'create':
+      changePage('list')
+      break;
+    case 'getreminder':
+      setEdit(data)
+      break;
+  }
+}
+
+ele.cancel.addEventListener('click', ()=> changePage('list'));
+ele.new.addEventListener('click', ()=> {
+  emptyInputs();
+  changePage('edit');
+});
+ele.history.addEventListener('click', ()=> changePage('history'));
+ele.back.addEventListener('click', ()=> changePage('list'));
+ele.cList.addEventListener('click', handleItemClick.bind(this, true));
+ele.oList.addEventListener('click', handleItemClick.bind(this, false));
+ele.save.addEventListener('click', saveReminder);
+ele.daily.addEventListener('click', handleDate);
+
+browser.runtime.onMessage.addListener(handleMessage);
+
+changePage('list');

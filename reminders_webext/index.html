@@ -1,25 +1,71 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="mtr/mtr-datepicker.css" />
-    </head>
-    <body>
-        <div id="isClock">
-            <div id="start-date-mtr-datepicker"></div>
-            <div class="actionHolder">
-                <input type="text" id="reminder-text" placeholder="Reminds me of..."/>
-                <button id="saveReminder">Remind me!</button>
-            </div>
-            <a id="showReminders" class="action">Show Reminders</a>
-        </div>
-        <div id="isList" class="hide">
-            <div id="reminderHead">Your Reminders</div>
-            <div id="reminderPlaceholder" class="hide">No Reminders</div>
-            <div id="reminderHolder"></div>
-            <a id="showClock" class="action">Set Reminders</a>
-        </div>
-        <div id="success"><p>Reminder<br>Set!</p></div>
-    </body>
-    <script src="mtr/mtr-datepicker.js"></script>
-    <script src="reminder.js"></script>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="./reminder.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<header class="centered">Reminders</header>
+			<div id="editView" class="page hidden">
+				<input type="hidden" name="id" />
+				<div class="inputBox">
+					<span>Title</span>
+					<input name="title" type="text"/>
+				</div>
+				<div class="inputBox">
+						<span>Des.</span>
+						<textarea name="desc"></textarea>
+					</div>
+				<div class="inputBox">
+					<span>Time</span>
+					<input name="time" type="time"/>
+				</div>
+				<div id="dateHolder" class="inputBox hidden">
+					<span>Date</span>
+					<input name="date" type="date"/>
+				</div>
+				<label for="repeat">
+					Daily<input id="repeat" name="daily" type="checkbox">
+				</label>
+				<div class="actionBtns centered">
+					<span id="save">SAVE</span>
+					<span class="hidden" id="delete">DELETE</span>
+					<span id="cancel">CANCEL</span>
+				</div>
+			</div>
+			<div id="listView" class="page hidden">
+				<div class="centered listHeading">
+					Current Reminders
+					<span id="history">🕒</span>
+				</div>
+				<hr/>
+				<div id="noCReminders" class="centered hidden">No current reminders</div>
+				<ul id="listViewULC"></ul>
+				<div class="actionBtns centered">
+					<span id="newReminder">NEW</span>
+				</div>
+			</div>
+			<div id="listViewO" class="page hidden">
+				<div class="centered listHeading">
+					<span id="back" class="">➜</span>
+					Old Reminders
+				</div>
+				<hr/>
+				<div id="noOReminders" class="centered hidden">No Old reminders</div>
+				<ul id="listViewULO"></ul>
+				<div class="actionBtns centered">
+					<span id="newReminder">NEW</span>
+				</div>
+			</div>
+		</div>
+		<template id="listitem">
+			<li>
+				<span class="lTitle" data-action="edit"></span>
+				<span class="action delete" data-action="delete">✖</span>
+				<span class="daily hidden">Daily</span>
+			</li>
+		</template>
+	</body>
+	<script src="./reminder.js"></script>
 </html>

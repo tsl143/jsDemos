@@ -1,13 +1,105 @@
-#datePicker, #timePicker {
-    background: #f9f9f9;
-    padding: 10px;
-    margin: 10px;
-    display: inline-block;
+:root {
+    --main-bg: #E8924D;
+    --main-clr: #fff;
 }
-select {
-    background: none;
+.centered {
+    text-align: center;
+}
+body {
+    color: #444;
+    font-family: Arial;
+    margin: 0;
+}
+header {
+    padding: 7px;
+    background: var(--main-bg);
+    color: var(--main-clr);
+    text-transform: uppercase;
+}
+#wrapper {
+    width: 350px;
+    height: 400px;
+    background: #eaeaea;
+    margin: 0 auto;
+}
+.hidden {
+    display: none!important;
+}
+.page {
+    padding: 20px;
+}
+.inputBox {
+    margin-top:20px;
+    position: relative;
+}
+.inputBox span {
+    position: absolute;
+    font-size: 12px;
+    background: var(--main-bg);
+    color: var(--main-clr);
+    padding: 1px 5px;
+    top: -11px;
+    left: 10px;
+    min-width: 30px;
+}
+input:not([type="checkbox"]), textarea {
+    padding: 8px 5px 5px;
+    width: 100%;
     border: 0;
-    padding: 5px 10px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+}
+.actionBtns span {
+    background: var(--main-bg);
+    color: var(--main-clr);
+    width: 60px;
+    display: inline-block;
+    padding: 5px;
+    margin: 20px 0;
+    font-size: 12px;
+    cursor: pointer;
+}
+label {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+ul {
+    padding-left: 15px;
+}
+li {
+    margin-top: 5px;
+}
+li span:first-child {
+    display: inline-block;
+    margin-right: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+}
+li span.action {
+    margin-right: 5px;
+}
+li span:last-child {
+    background: var(--main-bg);
+    color: var(--main-clr);
+    font-size: 8px;
+    padding: 2px 3px;
+}
+li span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 4px;
+}
+.listHeading {
+    position: relative;
+}
+.listHeading #history {
+    position: absolute;
+    right: 0;
+}
+.listHeading #back {
+    left: 0;
+    position: absolute;
+    transform: rotateY(180deg);
+    color: #7e7f7f;
 }
