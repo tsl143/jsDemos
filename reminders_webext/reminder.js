@@ -18,6 +18,19 @@ const ele = {
   oList: document.getElementById('listViewULO'),
   history: document.getElementById('history'),
   back: document.getElementById('back'),
+  overlay: document.getElementById('overlay'),
+  closeAlert: document.getElementById('closeAlert'),
+  alertTxt: document.getElementById('alertTxt'),
+}
+
+const showAlert = msg => {
+  ele.alertTxt.textContent = msg;
+  ele.overlay.classList.remove('hidden');
+}
+
+const closeAlert = () => {
+  ele.alertTxt.textContent = '';
+  ele.overlay.classList.add('hidden');
 }
 
 const makeList = (data = [], current = true) => {
@@ -76,11 +89,11 @@ const saveReminder = () => {
     id: ele.id.value,
   }
   if (!data.rTime || data.rTime == "") {
-    alert("no time set");
+    showAlert("No time set");
     return;
   }
   if (!data.daily && (!data.rDate || data.rDate == "")) {
-    alert("no Date set");
+    showAlert("No Date set");
     return;
   }
   // send to BG
@@ -169,6 +182,7 @@ ele.cList.addEventListener('click', handleItemClick.bind(this, true));
 ele.oList.addEventListener('click', handleItemClick.bind(this, false));
 ele.save.addEventListener('click', saveReminder);
 ele.daily.addEventListener('click', handleDate);
+ele.closeAlert.addEventListener('click', closeAlert);
 
 browser.runtime.onMessage.addListener(handleMessage);
 
