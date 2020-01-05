@@ -1,17 +1,20 @@
-
+const handleMessage = async (id, data) => {
+	const tabs = await browser.tabs.get(id);
+	if (tabs.url.startsWith('http')) browser.tabs.sendMessage(id,{ data });
+}
 
 browser.browserAction.onClicked.addListener(tab=>{
-	const sending = browser.tabs.sendMessage(tab.id,{data:'knockKnock'});
+	handleMessage(tab.id,knockKnock);
 });
 
 browser.tabs.onActivated.addListener(tab=>{
-	const sending = browser.tabs.sendMessage(tab.tabId,{data:'iAmBack'});
+	handleMessage(tab.tabId, 'iAmBack');
 });
 
 browser.tabs.onCreated.addListener(tab=>{
-	const sending = browser.tabs.sendMessage(tab.tabId,{data:'iAmBack'});
+	handleMessage(tab.tabId, 'iAmBack');
 });
 
-browser.tabs.onUpdated.addListener(tabId=>{
-	const sending = browser.tabs.sendMessage(tabId,{data:'iAmBack'}); 
+browser.tabs.onUpdated.addListener((tabId,c) =>{
+	handleMessage(tabId, 'iAmBack');
 });

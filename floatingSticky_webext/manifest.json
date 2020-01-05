@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Floating Sticky",
-    "version": "1.1",
+    "version": "1.5",
     "description": "An extension to put a sticky note whereever you want on the browser.",
     "background": {
         "scripts": ["background.js"]
@@ -21,5 +21,10 @@
         "default_title": "Floating Sticky",
         "browser_style": true
     },
-    "permissions": ["storage"]
+    "permissions": ["storage", "tabs"],
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "{964e45f5-76e0-4b80-9786-b7b15c14e819}"
+        }
+    }
 }
