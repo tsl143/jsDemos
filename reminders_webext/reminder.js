@@ -18,8 +18,6 @@ const ele = {
   oList: document.getElementById('listViewULO'),
   history: document.getElementById('history'),
   back: document.getElementById('back'),
-  noCReminders: document.getElementById('noCReminders'),
-  noOReminders: document.getElementById('noOReminders'),
 }
 
 const makeList = (data = [], current = true) => {
@@ -32,11 +30,7 @@ const makeList = (data = [], current = true) => {
       ele.oList.firstChild.remove();
     }
   }
-  if (data.length == 0) {
-    if(current) ele.noCReminders.classList.remove('hidden');
-    else ele.noOReminders.classList.remove('hidden');
-    return;
-  }
+
   const template = document.getElementById('listitem');
   const holder = current ? ele.cList : ele.oList;
   data.forEach(d => {
@@ -152,12 +146,7 @@ const emptyInputs = () => {
 const handleMessage = ({action, data, current}) => {
   switch(action) {
     case 'list':
-      const sortedData = [];
-      Object.keys(data).forEach(k => {
-        const entry = data[k];
-        entry.id = k;
-        sortedData.push(entry);
-      });
+      const sortedData = Object.keys(data).map(k =>data[k]);
       makeList(sortedData, current);
       break;
     case 'create':

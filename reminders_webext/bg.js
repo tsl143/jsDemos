@@ -1,5 +1,36 @@
 const idPrefix = 'queIt_';
 
+(async () => {
+	const {tslReminders : data = {}, migrated = false} =  await browser.storage.local.get() || {};
+	if (migrated) return;
+	Object.keys(data).forEach(id => {
+		if (typeof data[id] !== 'string') return;
+		try {
+			const formatDate = d => {
+				const year = tsDate.getFullYear();
+				const month = (tsDate.getMonth() + 1).toString().padStart(2,0);
+				const dateN = (tsDate.getDate()).toString().padStart(2,0);
+				return `${year}-${month}-${dateN}`;
+			}
+			const ts = id.split(idPrefix)[1];
+			const tsDate = new Date(ts*1);
+			const rDate = formatDate(tsDate);
+			const rTime = `${tsDate.getHours()}:${tsDate.getMinutes()}`;
+			const newData =  {
+				title: data[id],
+				desc: '',
+				daily: false,
+				id,
+				ts,
+				rDate,
+				rTime
+			}
+			data[id] = newData;
+		}catch(e){}
+	});
+	await browser.storage.local.set({ tslReminders: data, migrated: true })
+})();
+
 const handleMessage = async ({ action, data = {} }) => {
 
 	const createTimestamp = ({ rDate = '', rTime }) => {
@@ -33,7 +64,8 @@ const handleMessage = async ({ action, data = {} }) => {
 	switch (action) {
 		case 'create':
 			const ts = createTimestamp(data)
-			const id = data.id && data.id !== '' ? data.id : `${idPrefix}${ts}`;
+			const id = (data.id && data.id !== '') ? data.id : `${idPrefix}${ts}`;
+			data.id = id;
 			data.ts = ts;
 			gettingItem.then((res) => {
 				const newReminders = res.tslReminders
@@ -59,7 +91,7 @@ const handleMessage = async ({ action, data = {} }) => {
 			}).catch(() => {
 				browser.runtime.sendMessage({
 					action: 'list',
-					data: [],
+					data: {},
 					current: data.current
 				});
 			});
@@ -97,15 +129,21 @@ const createNotification = info => {
 browser.alarms.onAlarm.addListener((alarm) => {
 	const gettingItem = browser.storage.local.get('tslReminders');
 	gettingItem.then(({ tslReminders }) => {
-		const reminder = tslReminders[alarm.name] || {};
+		let reminder = tslReminders[alarm.name] || {};
+		if (typeof reminder === 'string') {
+			reminder = {
+				title: 'Reminder',
+				desc: reminder
+			}
+		}
 		const info = {
 			type: "basic",
 			iconUrl: "icons/logo_64.png",
-			title: "Reminder",
-			message: reminder.title || 'PING'
+			title: reminder.title || "Reminder",
+			message: reminder.desc || 'PING'
 		}
 		createNotification(info);
 		if (!reminder.daily) tslReminders[alarm.name].done = true;
-		browser.storage.local.set({ tslReminders })
+		browser.storage.local.set({ tslReminders });
 	});
 });
