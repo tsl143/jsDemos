@@ -17,10 +17,6 @@ gettingItem.then((res) => {
     }catch(e){}
 });
 
-$('#testing').click(function (e) {
-    console.log('e');
-})
-
 notePad.addEventListener('keyup',()=>{
     browser.storage.local.set({ tslStickyNotes: notePad.value });
 }, false);
