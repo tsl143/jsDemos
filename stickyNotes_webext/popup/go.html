@@ -9,16 +9,7 @@
 #itsAFact {
     padding: 5px;
 }
-#cleanPad {
-    cursor: pointer;
-    display: block;
-    margin: 5px auto 0;
-    width: 100px;
-    background: #888;
-    text-align: center;
-    padding: 5px;
-    color: #fff;
-}
+
 #tslNotes {
     font-size: 16px;
 	width: 350px;
@@ -26,15 +17,6 @@
     padding: 5px;
 	overflow: auto;
     border: 1px solid black;
-}
-
-#layOver {
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    background: rgba(0,0,0,0.5);
 }
 
 #layOver button {
@@ -49,10 +31,6 @@
     color: #fff;
     margin-top: 140px;
 }
-
-.hidden {
-    display: none;
-}
  
 </style>
 </head>
@@ -62,7 +40,6 @@
         <th><button class="btn btn-primary" id="bold-button">Bold</button></th>
         <th><button class="btn btn-primary" id="italic-button">Italic</button></th>
         <th><button class="btn btn-primary" id="underline-button">Underline</button></th>
-        <th><button class="btn btn-primary" id="save-button">Save</button></th>
 
     </tr>
 </table>
@@ -70,11 +47,6 @@
 <div id="itsAFact">
     <div>
         <div contenteditable="true" id="tslNotes" placeholder="Type anything..."></div>
-    </div>
-    <div id="layOver" class="hidden">
-        <div>Are you sure to delete everything?</div>
-        <button id="yesPlz">Yes</button>
-        <button id="nope">No</button>
     </div>
 </div>
 </body>
