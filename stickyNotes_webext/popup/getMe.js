@@ -1,7 +1,4 @@
 const notePad = document.getElementById('tslNotes');
-const layOver = document.getElementById('layOver');
-const yes = document.getElementById('yesPlz');
-const no = document.getElementById('nope');
 const boldButton = document.getElementById('bold-button');
 const italicButton = document.getElementById('italic-button');
 const underlineButton = document.getElementById('underline-button');
@@ -21,16 +18,6 @@ notePad.addEventListener('keyup',()=>{
     browser.storage.local.set({ tslStickyNotes: notePad.value });
 }, false);
 
-no.addEventListener('click',()=>{
-    layOver.className="hidden";
-}, false);
-
-yes.addEventListener('click',()=>{
-    notePad.value = "";
-    browser.storage.local.set({ tslStickyNotes: "" });
-    layOver.className="hidden";
-}, false);
-
 boldButton.addEventListener('click', ()=>{
     console.log("press");
     // $('#tslNotes').css('font-weight', '700');
@@ -47,8 +34,4 @@ underlineButton.addEventListener('click', ()=>{
     console.log("press");
     // $('#tslNotes').css('text-Decoration', 'underline');
     document.execCommand('underline', false, null);
-}, false);
-
-testing.addEventListener('click', ()=>{
-    console.log("press");
 }, false);
