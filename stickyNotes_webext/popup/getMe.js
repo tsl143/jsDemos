@@ -9,13 +9,18 @@ const gettingItem = browser.storage.local.get('tslStickyNotes');
 gettingItem.then((res) => {
     try{
         if(res.tslStickyNotes){
-            notePad.value = res.tslStickyNotes;
+            notePad.innerHTML = res.tslStickyNotes;
         }
     }catch(e){}
 });
 
+// document.getElementById('tslNotes').innerHTML = localStorage['tslNotes'] || 'type something...';
+// setInterval(function() {
+//     localStorage['tslNotes'] = document.getElementById('tslNotes').innerHTML;
+// }, 20 * 1000);
+
 notePad.addEventListener('keyup',()=>{
-    browser.storage.local.set({ tslStickyNotes: notePad.value });
+    browser.storage.local.set({ tslStickyNotes: notePad.innerHTML });
 }, false);
 
 boldButton.addEventListener('click', ()=>{
