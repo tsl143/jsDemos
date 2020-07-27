@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="../jquery-3.5.1.min.js"></script>
 <style type="text/css">
 
 #itsAFact {
-    text-align: center;
     padding: 5px;
 }
 #cleanPad {
@@ -19,12 +19,13 @@
     padding: 5px;
     color: #fff;
 }
-textarea {
+#tslNotes {
     font-size: 16px;
 	width: 350px;
 	height: 250px;
     padding: 5px;
 	overflow: auto;
+    border: 1px solid black;
 }
 
 #layOver {
@@ -52,14 +53,26 @@ textarea {
 .hidden {
     display: none;
 }
- 
+
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-ph)
+}
 </style>
 </head>
 <body>
+<table>
+    <tr>
+        <th><button class="btn btn-primary" id="bold-button">Bold</button></th>
+        <th><button class="btn btn-primary" id="italic-button">Italic</button></th>
+        <th><button class="btn btn-primary" id="underline-button">Underline</button></th>
+    </tr>
+</table>
+
 <div id="itsAFact">
-	<div><textarea id="tslNotes" placeholder="Get Set Go..."></textarea>
-	<a id="cleanPad">Clear</a>
-	</div>
+    <div>
+        <div contenteditable="true" id="tslNotes" data-ph="Type anything..."></div>
+        <a id="cleanPad">Clear</a>
+    </div>
     <div id="layOver" class="hidden">
         <div>Are you sure to delete everything?</div>
         <button id="yesPlz">Yes</button>
